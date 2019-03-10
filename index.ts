@@ -1,11 +1,11 @@
-import app from "./bin/serve";
-import http from "http";
+import app from './bin/serve';
+import http from 'http';
 import mongoose from 'mongoose';
 
 let port = process.env.PORT || '8000';
 let connectionString = process.env.NODE_ENV == 'production'
   ? process.env.MONGO_HOST
-  : 'mongodb://localhost/store'
+  : 'mongodb://localhost/store';
 
 mongoose.connect(connectionString).catch(err=>{
     console.log(err);

@@ -1,78 +1,52 @@
-import express from "express";
-import { Request, Response, NextFunction } from "express"
-import * as service from "./service";
+import express from 'express';
+import {
+  Request,
+  Response,
+  NextFunction
+} from 'express'
+import { IBaseController } from '../base/interfaces/IBaseController';
+import { ProductService } from './Service';
 const router = express.Router();
 
-/**
- * Get books list
- * @returns Array of books objects filtered by title part
- */
-export async function get(req: Request, res: Response, next: NextFunction) {
-  try {
-    const books = await service.find();
-    res.json(books);
+export default class ProductController implements IBaseController{
 
-  } catch (error) {
-    next(error);
+  private service: ProductService;
+
+  constructor() {
+    this.service = new ProductService();
   }
-};
+  /**
+   * Get products list
+   * @returns Array of products objects filtered by title part
+   */
+  public async get(req: Request, res: Response, next: NextFunction) {
+    try {
+      const products = await this.service.find();
+      res.json(products);
 
-/**
- * Get books by ID
- * @returns Array of books objects
- */
-export async function getById(req: Request, res: Response, next: NextFunction) {
-  try {
-    const id = req.params.id;
-    const books = await service.findById(id);
-    res.json(books);
+    } catch (error) {
+      next(error);
+    }
+  };
 
-  } catch (error) {
-    next(error);
+  public async post(req: Request, res: Response, next: NextFunction) {
+    try {
+      const products = await this.service.create();
+      res.json(products);
+
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getById(req: express.Request, res: express.Response, next: express.NextFunction): void {
+    throw new Error("Method not implemented.");
   }
-
-};
-
-/**
- * Update one book by ID
- * @returns Book updated object
- */
-export async function put(req: Request, res: Response, next:NextFunction) {
-  try {
-    const id = req.params.id;
-    const book = req.body;
-    const books = await service.update(id, book);
-    res.json(book);
-  } catch (error) {
-    next(error);
+  put(req: express.Request, res: express.Response, next: express.NextFunction): void {
+    throw new Error("Method not implemented.");
+  }
+  deleteOne(req: express.Request, res: express.Response, next: express.NextFunction): void {
+    throw new Error("Method not implemented.");
   }
 
-};
-
-/**
- * Create one book
- * @returns Book updated object
- */
-export async function post(req: Request, res: Response, next: NextFunction) {
-  try {
-    const book = req.body;
-    res.json(await service.create(book));
-  } catch (error) {
-    next(error);
-  }
-
-};
-
-/**
- * Delete one Book by its id
- */
-export async function deleteOne(req: Request, res: Response, next: NextFunction) {
-  try {
-    const id = req.params.id;
-    const books = await service.deleteOne(id);
-    res.json(books);
-  } catch (error) {
-    next(error);
-  }
-
-};
+}

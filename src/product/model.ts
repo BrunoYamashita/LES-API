@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const Product = new mongoose.Schema({
     title: { type: String, required: true },
@@ -8,7 +8,7 @@ const Product = new mongoose.Schema({
     rating: { type: String, required: true }
 })
   
-export type productModel = typeof Product;
-
+export type ProductModel = typeof Product;
+export const CollectionName = 'Product';
 export default mongoose.model('Product', Product)
 

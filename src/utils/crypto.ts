@@ -1,5 +1,5 @@
 import * as crypto from 'crypto'
-import User from '../intefaces/user.interface';
+import User from '../user/user.interface';
 
 /**
  * generates random string of characters i.e salt
