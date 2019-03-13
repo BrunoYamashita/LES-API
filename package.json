@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "begin": "npm i && tsc",
+    "serve": "node dist/index"
   },
   "author": "Bruno Yamashita, Lucas Tetsuo",
   "license": "ISC",
